@@ -20,50 +20,6 @@ Choropleth maps display divided geographical areas or regions that are coloured,
 
 ```elm {l=hidden}
 import VegaLite exposing (..)
-path : String
-path =
-    "https://gicentre.github.io/data/"
-```
-```elm {l=hidden interactive}
-globe : Projection -> List ProjectionProperty -> Spec
-globe proj props =
-    let
-        cfg =
-            configure
-                << configuration (coView [ vicoStroke Nothing ])
-
-        pDetails =
-            [ width 700, height 400, projection (prType proj :: props) ]
-
-        enc =
-            encoding
-                << color [
-                    mName "properties.rate",
-                    mQuant
-                ]
-                <<  tooltip [ tName "properties.name"]
-
-        countrySpec =
-            asSpec
-                (pDetails
-                    ++ [ dataFromUrl "./output/result1.json" [ topojsonFeature "countries1" ]
-                        , enc []
-
-                       , geoshape [ maStroke "white",
-                       maStrokeWidth 0.1, maTooltip ttEncoding]
-                       ]
-                )
-    in
-    toVegaLite [
-        cfg [],
-        layer [ countrySpec ]
-    ]
-```
-
-```elm {v}
--- worldMap : Spec
--- worldMap =
---     globe equalEarth []
 ```
 
 ```elm {v interactive}
@@ -155,7 +111,6 @@ geoMap2 =
                 << color [
                     mName "properties.rate"
                     ,mScale rateColours
-                    , mLegend []
                 ]
 
                 << tooltips
@@ -191,3 +146,6 @@ rateColours =
         , ( "<0.1%", "#048028" )
         ]
 ```
+
+<center>Fig.2.1.1 Top 15 Economy Prevalence Distribution(2020)</center>
+<center>Source: World Health Organization (WHO), Centers for Disease Control and Prevention (CDC), national and state public health departments, BNO News, 24/7 Wall St., Worldometer, and Wikipedia. </center>
